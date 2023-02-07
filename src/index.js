@@ -6,7 +6,7 @@ import './css/styles.css';
 
 function getDino() {
   let request = new XMLHttpRequest();
-  const url = `https://dinoipsum.com/api/?format=json&words=10&paragraphs=3`;
+  const url = `https://dinoipsum.com/api/?format=json&words=1&paragraphs=1`;
 
   request.addEventListener("loadend", function() {
     const response = JSON.parse(this.responseText);
@@ -65,8 +65,9 @@ function printElements(fish) {
 
 function handleFormSubmission(event) {
   event.preventDefault();
-  // const city = document.querySelector('#location').value;
-  // document.querySelector('#location').value = null;
+  const inputtedLetter = document.querySelector('#location').value;
+  console.log("inputtedLetter", inputtedLetter);
+  document.querySelector('#location').value = null;
   getDino();
 }
 
