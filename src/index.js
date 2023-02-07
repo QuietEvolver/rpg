@@ -1,76 +1,69 @@
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/styles.css';
+// import 'bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import './css/styles.css';
 
-// Business Logic+
+
+/////////Molly////////////
+function Desk() {
+  this.dinosaur = {};
+  this.attemptsArray = [];
+}
+let desk = new Desk();
+
+class DinoRandom {  
+  static getDino() {
+    return new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest();
+      const url = `https://dinoipsum.com/api/?format=json&words=1&paragraphs=1`;
+      request.addEventListener("loadend", function() {
+        const response = JSON.parse(this.responseText);
+        console.log(response);
+        if (this.status === 200) {
+          resolve([response]);
+        } else {
+          reject([this, response]);
+        }
+      });
+      request.open("GET", url, true);
+      request.send();
+    });
+  }
+}
 
 function getDino() {
-  let request = new XMLHttpRequest();
-  const url = `https://dinoipsum.com/api/?format=json&words=1&paragraphs=1`;
-
-  request.addEventListener("loadend", function() {
-    const response = JSON.parse(this.responseText);
-    let array1 = this.reponse;
-    console.log(array1);
-    printElements(response);
-    
+  let promise = DinoRandom.getDino();
+  promise.then(function(dinoRandomArray) {
+    printElements(dinoRandomArray);
+  }, function(errorArray) {
+    printError(errorArray);
   });
-
-  request.open("GET", url, true);
-  request.send();
 }
 
 function printElements(fish) {
   console.log(fish);
+  desk.dinosaur = fish;
   document.querySelector('#showResponse').innerText = fish;
 }
 
-// addNumbers(x,y) {
-//   let z = x + y;
-//   return z 
-// }
-
-// let text1 = "Hello world"
-// let text2 = "Nice to meet you"
-
-// let result = addNumbers(text1,text2)
-// console.log(result)
-
-
-// result = "Hello worldNice to meet you"
-// function getWeather(city) {
-//   let request = new XMLHttpRequest();
-//   const url = `https://dinoipsum.com/api/?format=html&words=5&paragraphs=2`;
-
-// //https://dinoipsum.com/api/?format=html&words=10&paragraphs=3
-  
-//   request.addEventListener("loadend", function() {
-//     const response = JSON.parse(this.responseText);
-//     if (this.status === 200) {
-//       printElements(response, city);
-//     } else {
-//       printError(this, response, city);
-//     }
-//   });
-
-//   request.open("GET", url, true);
-//   request.send();
-// }
-
-// UI Logic
-
-// function printError(request, apiResponse, city) {
-//   document.querySelector('#showResponse').innerText = `There was an error accessing the weather data for ${city}: ${request.status} ${request.statusText}: ${apiResponse.message}`;
-// }
+function printError(error) {
+  document.querySelector('#showResponse').innerText = `There was an error accessing the dino data. Error status: ${error[0].status} ${error[0].statusText}`;
+}
 
 function handleFormSubmission(event) {
   event.preventDefault();
-  const inputtedLetter = document.querySelector('#location').value;
-  console.log("inputtedLetter", inputtedLetter);
-  document.querySelector('#location').value = null;
-  getDino();
+  const letter = document.querySelector('#letter').value;
+  console.log("letter ", letter);
+  console.log("desk ", desk);
+  desk.attemptsArray.push(letter);
+  document.querySelector('#letter').value = null;
+
+
+
 }
 
 window.addEventListener("load", function() {
   document.querySelector('form').addEventListener("submit", handleFormSubmission);
+  getDino();
+
+  // onclick btn handler 
 });
