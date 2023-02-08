@@ -1,14 +1,19 @@
-// import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import './css/styles.css';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/styles.css';
 
-
-/////////Molly////////////
-function Desk() {
+class Desk {
+  constructor() {
   this.dinosaur = {};
   this.attemptsArray = [];
 }
+}
+
 let desk = new Desk();
+
+
+
+
 
 class DinoRandom {  
   static getDino() {
@@ -39,10 +44,11 @@ function getDino() {
   });
 }
 
-function printElements(fish) {
-  console.log(fish);
-  desk.dinosaur = fish;
-  document.querySelector('#showResponse').innerText = fish;
+function printElements(desk) {
+  document.querySelector('#showResponse').innerText =  desk; 
+}
+function dinoAndText(text) {
+  document.querySelector('#dinoandtext').innerText = text
 }
 
 function printError(error) {
@@ -52,14 +58,23 @@ function printError(error) {
 function handleFormSubmission(event) {
   event.preventDefault();
   const letter = document.querySelector('#letter').value;
-  console.log("letter ", letter);
-  console.log("desk ", desk);
+
   desk.attemptsArray.push(letter);
+  let array = desk.attemptsArray
   document.querySelector('#letter').value = null;
+  console.log(desk.dinosaur);
+  console.log(desk);
+  dinoAndText(array);
 
+  // const information = desk.attemptsArray
+  // const dinosaur = desk.dinosaur
 
-
+  // document.querySelector('#dinoandtext').value = letter;
 }
+
+/*
+at the end of handleformsubmission, it will inject the dinosaur and the letter array into the html
+*/
 
 window.addEventListener("load", function() {
   document.querySelector('form').addEventListener("submit", handleFormSubmission);
