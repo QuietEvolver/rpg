@@ -91,51 +91,54 @@ function handleFormSubmission(event) {
 at the end of handleformsubmission, it will inject the dinosaur and the letter array into the html
 */
 
+//BUISNESS LOGIC
 // This function stores our state.
+const storeState = () => {
+  let currentState = {};
+  return (stateChangeFunction = (state) => state) => {
+    const newState = stateChangeFunction(currentState);
+    currentState = { ...newState };
+    return newState;
+  };
+};
+
+const stateControl = storeState();
+
+const changeState = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state,
+      [prop]: (state[prop] || 0) + value,
+    });
+  };
+};
+
+const plant1 = storeState({ soil: 0, water: 0, light: 0 });
+
+const feed = changeState("soil")(1);
+const blueFood = changeState("soil")(5);
+
+const hydrate = changeState("water")(1);
+const superWater = changeState("water")(5);
+
+const sunshine = changeState("light")(111);
+const plantLamp = changeState("light")(5);
+
+//UI LOGIC
+
 function handleFormSubmission(event) {
   event.preventDefault();
-  const storeState = () => {
-    let currentState = {};
-    return (stateChangeFunction = (state) => state) => {
-      const newState = stateChangeFunction(currentState);
-      currentState = { ...newState };
-      return newState;
-    };
-  };
 
-  const stateControl = storeState();
-
-  // This is a function factory.
-  // We can easily create more specific functions that
-  // alter a plant's soil, water, and light to varying degrees.
-  const changeState = (prop) => {
-    return (value) => {
-      return (state) => ({
-        ...state,
-        [prop]: (state[prop] || 0) + value,
-      });
-    };
-  };
-
-  // We create four functions using our function factory.
-  // We could easily create many more.
-  const feed = changeState("soil")(1);
-  const blueFood = changeState("soil")(5);
-
-  const hydrate = changeState("water")(1);
-  const superWater = changeState("water")(5);
   console.log(
-    "feed, blueFood, hydrate, superWater",
+    "feed, blueFood, hydrate, superWater, sunshine, plantLamp",
     feed,
     blueFood,
     hydrate,
-    superWater
+    superWater,
+    sunshine,
+    plantLamp
   );
   window.onload = function () {
-    // This function has side effects because we are manipulating the DOM.
-    // Manipulating the DOM will always be a side effect.
-    // Note that we only use one of our functions to alter soil.
-    // You can easily add more.
     document.getElementById("feed").onclick = function () {
       const newState = stateControl(blueFood);
       document.getElementById(
@@ -143,14 +146,13 @@ function handleFormSubmission(event) {
       ).innerText = `Soil: ${newState.soil}`;
     };
 
-    // This function doesn't actually do anything useful in this application
-    // — it just demonstrates how we can "look" at the current state
-    // (which the DOM is holding anyway).
-    // However, students often do need the ability to see the current state
-    // without changing it so it's included here for reference.
+    document.getElementById("feedPlant1").onclick = function () {
+      const plant1Feed = plant1(blueFood);
+      document.getElementById("soil-value").innerText = `Soil: ${plant1.soil}`;
+      console.log("plant1, plant1Feed", plant1, plant1Feed);
+    };
+
     document.getElementById("show-state").onclick = function () {
-      // We just need to call stateControl() without arguments
-      // to see our current state.
       const currentState = stateControl();
       document.getElementById(
         "soil-value"
@@ -163,7 +165,5 @@ window.addEventListener("load", function () {
   document
     .querySelector("form")
     .addEventListener("submit", handleFormSubmission);
-  // stateControl();
-
-  // onclick btn handler
+  stateControl();
 });
