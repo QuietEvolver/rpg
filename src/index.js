@@ -42,7 +42,7 @@ window.onload = function () {
   
   const stateControl = storeState();
 
-  stateControl(changeStateNum("faceCard")(0));
+  stateControl(changeStateNum("faceCard")(0)); // QUES: HOW before "faceCard") is defined?
   stateControl(changeStateNum("singleCard")(0));
 
   // when entering in name into States(), they must be the js variable name;
@@ -60,7 +60,7 @@ window.onload = function () {
     document.getElementById(
       "name"
     ).innerText = `Character Name: ${character.name}`;
-    document.getElementById("create-character").reset();
+    document.getElementById("create-character").reset(); // look up reset()
   };
 
   // set up click events when buttons are rpg:single(1)/face(10) are clicked
@@ -70,7 +70,6 @@ window.onload = function () {
     document.getElementById(
       "total-face-value"
     ).innerText = ` are equal to: ${newState.faceCard}`;
-    console.log(newState.faceCard);
     document.getElementById("total-overall-value").innerText = newState.faceCard + newState.singleCard;
   }; // TODO: call and pass to setState
   
@@ -95,7 +94,11 @@ window.onload = function () {
     document.getElementById("total-overall-value").innerText = 0;
   };
 };
-// TODO: Add/setSt multi chars to DOM. []
+// TODO: Add/setSt multi chars to DOM. [done]
+// TODO: How to print chars to page
+// switch state 
+// between characters
+// so we can game;
 
 
 // const storeState = (initialState) => { //
