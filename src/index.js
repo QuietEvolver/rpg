@@ -72,6 +72,8 @@ window.onload = function () {
     document.getElementById("total-overall-value").innerText = newState.faceCard + newState.singleCard;
   };
 };
+// TODO: Add/setSt multi chars to DOM. []
+
 
 // const storeState = (initialState) => { //
 //   let currentState = {initialState}; // {};
