@@ -33,8 +33,8 @@ window.onload = function () {
 
   const stateControl = storeState();
 
-  const faceCard = changeState("face-card")(10);
-  const singleCard = changeState("single-card")(1);
+  const faceCard = changeStateNum("face-card")(10);
+  const singleCard = changeStateNum("single-card")(1);
   
   document.getElementById("create-character").onsubmit = function (event) {
     event.preventDefault();
