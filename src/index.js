@@ -4,18 +4,27 @@ import "./css/styles.css";
 
 const storeState = () => {
   let currentState = {}; 
-  return (stateChangeFunction = (state) => state => {
+  return (stateChangeFunction = (state) => state) => {
     const newState = stateChangeFunction(currentState);
     currentState = { ...newState };
     return newState;
-  });
+  };
 };
 
-const stateChange = (prop) => {
+// const changeStateNum = (prop) => {
+//   return (value) => {
+//     return (state) => ({
+//       ...state, 
+//       [prop]: (state[prop] || 0) + value 
+//     });
+//   };
+// };
+
+const changeStateStr = (prop) => {
   return (value) => {
     return (state) => ({
       ...state, 
-      [prop]: (state[prop] || 0) + value 
+      [prop]: (state[prop] || "") + value 
     });
   };
 };
@@ -27,7 +36,7 @@ window.onload = function () {
   document.getElementById("create-character").onsubmit = function (event) {
     event.preventDefault();
     let characterName = document.getElementById("character-name").value;
-    const character = stateControl(changeState("name")(characterName));
+    const character = stateControl(changeStateStr("name")(characterName));
     document.getElementById(
       "name"
     ).innerText = `Character Name: ${character.name}`;
