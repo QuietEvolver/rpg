@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css";
 
 const storeState = () => {
-  let currentState = {}; 
+  let currentState = {};
   return (stateChangeFunction = (state) => state) => {
     const newState = stateChangeFunction(currentState);
     currentState = { ...newState };
@@ -14,8 +14,8 @@ const storeState = () => {
 const changeStateNum = (prop) => {
   return (value) => {
     return (state) => ({
-      ...state, 
-      [prop]: (state[prop] || 0) + value 
+      ...state,
+      [prop]: (state[prop] || 0) + value,
     });
   };
 };
@@ -23,19 +23,22 @@ const changeStateNum = (prop) => {
 const changeStateStr = (prop) => {
   return (value) => {
     return (state) => ({
-      ...state, 
-      [prop]: (state[prop] || "") + value 
+      ...state,
+      [prop]: (state[prop] || "") + value,
     });
   };
 };
 
 window.onload = function () {
-
   const stateControl = storeState();
+  // when entering in name into States(), they must be the js variable name;
+  const faceCard = changeStateNum("faceCard")(10);
+  const singleCard = changeStateNum("singleCard")(1);
 
-  const faceCard = changeStateNum("face-card")(10);
-  const singleCard = changeStateNum("single-card")(1);
-  
+
+
+  console.log("")
+
   document.getElementById("create-character").onsubmit = function (event) {
     event.preventDefault();
     let characterName = document.getElementById("character-name").value;
@@ -46,16 +49,22 @@ window.onload = function () {
   };
 
   // set up click events when buttons are rpg:single(1)/face(10) are clicked
-  
-  document.getElementById("face-card").onclick = function(){
-      const newState = stateControl(faceCard);
-      document.getElementById("total-value").innerText = ` are equal to: ${newState.faceCard}`;
-    }; // TODO: call and pass to setState
-  document.getElementById("single-card").onclick = function(){
-      const newState = stateControl(singleCard);
-      document.getElementById("total-value").innerText = ` are equal to: ${newState.singleCard}`;
-    };
 
+  document.getElementById("face-card").onclick = function () {
+    const newState = stateControl(faceCard);
+    document.getElementById(
+      "total-face-value"
+    ).innerText = ` are equal to: ${newState.faceCard}`;
+    console.log(newState.faceCard);
+  }; // TODO: call and pass to setState
+  
+  document.getElementById("single-card").onclick = function () {
+    const newState = stateControl(singleCard);
+    document.getElementById(
+      "total-single-value"
+    ).innerText = ` are equal to: ${newState.singleCard}`;
+    document.getElementById("total-overall-value").innerText = newState.faceCard + newState.singleCard;
+  };
 };
 
 // const storeState = (initialState) => { //
