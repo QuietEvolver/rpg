@@ -29,6 +29,15 @@ const changeStateStr = (prop) => {
   };
 };
 
+const resetState = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state,
+      [prop]: value,
+    });
+  };
+};
+
 window.onload = function () {
   
   const stateControl = storeState();
@@ -40,7 +49,7 @@ window.onload = function () {
   const faceCard = changeStateNum("faceCard")(10);
   const singleCard = changeStateNum("singleCard")(1);
 
-  
+  const multCharacters = [];
 
   console.log("");
 
@@ -51,6 +60,7 @@ window.onload = function () {
     document.getElementById(
       "name"
     ).innerText = `Character Name: ${character.name}`;
+    document.getElementById("create-character").reset();
   };
 
   // set up click events when buttons are rpg:single(1)/face(10) are clicked
@@ -71,6 +81,19 @@ window.onload = function () {
     ).innerText = ` are equal to: ${newState.singleCard}`;
     document.getElementById("total-overall-value").innerText = newState.faceCard + newState.singleCard;
   };
+
+  // multi-char[]
+  document.getElementById("store-character").onclick = function() {
+    const currentState = stateControl();
+    multCharacters.push(currentState);
+    console.log(multCharacters);
+    stateControl(resetState("faceCard")(0));
+    stateControl(resetState("singleCard")(0));
+    stateControl(resetState("name")(""));
+    document.getElementById("total-face-value").innerText = 0;
+    document.getElementById("total-single-value").innerText = 0;
+    document.getElementById("total-overall-value").innerText = 0;
+  };
 };
 // TODO: Add/setSt multi chars to DOM. []
 
@@ -84,7 +107,7 @@ window.onload = function () {
 //   };
 // };
 
-// const changeState = (prop) => {
+// const resetState = (prop) => {
 //   return (value) => {
 //     return (state) => (
 //       {
