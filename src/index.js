@@ -11,14 +11,14 @@ const storeState = () => {
   };
 };
 
-// const changeStateNum = (prop) => {
-//   return (value) => {
-//     return (state) => ({
-//       ...state, 
-//       [prop]: (state[prop] || 0) + value 
-//     });
-//   };
-// };
+const changeStateNum = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state, 
+      [prop]: (state[prop] || 0) + value 
+    });
+  };
+};
 
 const changeStateStr = (prop) => {
   return (value) => {
@@ -32,6 +32,9 @@ const changeStateStr = (prop) => {
 window.onload = function () {
 
   const stateControl = storeState();
+
+  const faceCard = changeState("face-card")(10);
+  const singleCard = changeState("single-card")(1);
   
   document.getElementById("create-character").onsubmit = function (event) {
     event.preventDefault();
@@ -41,6 +44,18 @@ window.onload = function () {
       "name"
     ).innerText = `Character Name: ${character.name}`;
   };
+
+  // set up click events when buttons are rpg:single(1)/face(10) are clicked
+  
+  document.getElementById("face-card").onclick = function(){
+      const newState = stateControl(faceCard);
+      document.getElementById("total-value").innerText = ` are equal to: ${newState.faceCard}`;
+    }; // TODO: call and pass to setState
+  document.getElementById("single-card").onclick = function(){
+      const newState = stateControl(singleCard);
+      document.getElementById("total-value").innerText = ` are equal to: ${newState.singleCard}`;
+    };
+
 };
 
 // const storeState = (initialState) => { //
