@@ -30,14 +30,19 @@ const changeStateStr = (prop) => {
 };
 
 window.onload = function () {
+  
   const stateControl = storeState();
+
+  stateControl(changeStateNum("faceCard")(0));
+  stateControl(changeStateNum("singleCard")(0));
+
   // when entering in name into States(), they must be the js variable name;
   const faceCard = changeStateNum("faceCard")(10);
   const singleCard = changeStateNum("singleCard")(1);
 
+  
 
-
-  console.log("")
+  console.log("");
 
   document.getElementById("create-character").onsubmit = function (event) {
     event.preventDefault();
@@ -56,6 +61,7 @@ window.onload = function () {
       "total-face-value"
     ).innerText = ` are equal to: ${newState.faceCard}`;
     console.log(newState.faceCard);
+    document.getElementById("total-overall-value").innerText = newState.faceCard + newState.singleCard;
   }; // TODO: call and pass to setState
   
   document.getElementById("single-card").onclick = function () {
