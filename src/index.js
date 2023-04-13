@@ -86,20 +86,85 @@ window.onload = function () {
     const currentState = stateControl();
     multCharacters.push(currentState);
     console.log(multCharacters);
+
+    const name = currentState.name;
+    console.log(name);
+    const newNameButton = document.createElement("button");
+    newNameButton.append(name);
+    newNameButton.setAttribute("id", name);
+    document.getElementById("new-name-button").append(newNameButton);
+    
     stateControl(resetState("faceCard")(0));
     stateControl(resetState("singleCard")(0));
     stateControl(resetState("name")(""));
     document.getElementById("total-face-value").innerText = 0;
     document.getElementById("total-single-value").innerText = 0;
     document.getElementById("total-overall-value").innerText = 0;
+
+    // TODO: Add/setSt multi chars to DOM. [done] using multCharacters[]
+    // const element = multCharacters[this.index];
+    
+    // multCharacters.forEach(function(item) {
+    //   const name = item.name;
+    //   console.log(name);
+    //   const newNameButton = document.createElement("button");
+    //   newNameButton.append(name);
+    //   newNameButton.setAttribute("id", name);
+    //   document.getElementById("new-name-button").append(newNameButton);
+    // });
+    // 
+    // for ( const [ index, element ] of multCharacters.entries()) {
+    //   console.log("Line i, e: ", index, element); // .parentNode.removeChild()
+    //   const name = element.name;
+    //   console.log(name);
+    //   const newNameButton = document.createElement("button");
+    //   newNameButton.append(name);
+    //   newNameButton.setAttribute("id", name);
+    //   document.getElementById("new-name-button").append(newNameButton);
+    // } 
+    ////////////////
+    // newNameButton.innerText = multCharacters[0].name;//[{prop.name}];// Constructore based :( this.prop.name; // ??
+    // newNameButton.addEventListener("click", () => {
+    //   //create new name elem
+    //   const message = document.createElement("new-name-button");
+    //   message.innerText = "Hello!";
+    //   document.body.appendChild(message);
+    // });
+    // document.body.appendChild(newNameButton);¸
+
+    // function listContacts(addressBookToDisplay) {
+    //   let contactsDiv = document.querySelector("div#contacts");
+    //   contactsDiv.innerText =  null;
+    //   const ul = document.createElement("ul");
+    //   Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
+    //     const contact = addressBookToDisplay.findContact(key);
+    //     const li = document.createElement("li");
+    //     li.append(contact.fullName());
+    //     li.setAttribute("id", contact.id);
+    //     ul.append(li);
+    //   });
+    //   contactsDiv.append(ul);
+    // }
+
+
+    // multCharacters = [ 
+    //   {name: "Joe", singleCard: 2, faceCard: 10}, 
+    //   {name: "Ann", singleCard: 5, faceCard: 30}
+    // ];
+
+    // multCharcters[1]
+
+    // TODO: How to print chars to page 
+    // switch state 
+    // between characters
+    // so we can game;
+    // TODO: buttons Bstrap
+    // btns w obj w stats
+    // if > 21 lose
+    // if < == 21 wins; any and all winners welcome
+    // future exp (1 winner) whoever uses more turn to get to 21 wins game
   };
 };
-// TODO: Add/setSt multi chars to DOM. [done]
-// TODO: How to print chars to page
-// switch state 
-// between characters
-// so we can game;
-
 
 // const storeState = (initialState) => { //
 //   let currentState = {initialState}; // {};
